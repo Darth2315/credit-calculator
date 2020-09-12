@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Кредитный калькулятор</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700%7CLato:300,300italic,400,400italic,700,900%7CPlayfair+Display:700italic,900" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    
+    <div class="container">
+        <h2>Кредитний калькулятор</h2>
+        <div class="conditions">до 22 000 грн на 30 днів</div>
+        
+        <div class="calculator-wrapper">
+            <div class="amount">Сума: <span id="sum">_____</span></div>
+            <div class="slidecontainer">
+                <input type="range" min="100" max="22000" value="100" step="100" class="slider" id="myRange">
+            </div>
+            <div class='info-cr info-credit-1'>100 грн</div>
+            <div class='info-cr info-credit-2'>до 22 000 грн</div>
+            <div class="term">Термін: <span id="days">_____</span></div>
+            <div class="slidecontainer">
+                <input type="range" min="1" max="30" value="1" step="1" class="slider" id="myTime">
+            </div>
+            <div class="info-cr info-credit-1">1 день</div>
+            <div class="info-cr info-credit-2">30 днів</div>
+
+            <div class="return-data-title">Повернути до:</div>
+            <div class="return-data">____</div>
+            <div class="return-sum-title">Сума:</div>
+            <div class="return-sum">____</div>
+            <div class="return-percent-title">Відсотки:</div>
+            <div class="return-percent">____</div>
+            <div class='dotted-border'></div>
+            <div class="return-total-title">Повернути:</div>
+            <div class="return-total">____</div>
+
+            <button class="confirm-credit-btn">Оформити кредит</button>
+        </div>
+
+    </div>
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>
