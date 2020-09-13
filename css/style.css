@@ -51,25 +51,22 @@ body {
       color: white;
       font-size: 22px;
       font-weight: 900;
-      padding: 20px;
+      padding: 15px;
     }
     .info-cr {
-        margin: -30px 0 50px 0;
-        position: absolute;
+        margin: -30px 0 30px 0;
         font-size: 14px;
         font-weight: normal;
-        width: 86%;
     }
     .info-credit-1 {   
-        margin-top: -30px;
         text-align: left;
     }
     .info-credit-2 {
-        margin-top: -30px;
         text-align: right;
-        margin-left: auto;
+        float: right;
     }
-    .confirm-credit-btn {
+    .confirm-credit-btn,
+    .button-order {
         width: 250px;
         height: 50px;
         background-color: #6bcad2;
@@ -80,20 +77,122 @@ body {
         color: white;
         display: block;
         margin: 0 auto;
+        margin-top: 30px;
+    }
+
+    .result-wrapper {
+        margin-top: 40px;
+    }
+    .calc-total-info {
+        margin: 20px 0 20px 0;
     }
 
     .return-data-title {
-        margin-top: 60px;
+        text-align: left;
     }
     .return-data {
-        margin-bottom: 20px;
+        text-align: right;
+        float: right;
+    }
+    .return-sum-title{
+        text-align: left;
     }
     .return-sum {
-        margin-bottom: 20px;
+        text-align: right;
+        float: right;
+    }
+    .return-percent-title {
+        text-align: left;
     }
     .return-percent {
-        margin-bottom: 20px;
+        text-align: right;
+        float: right;
+    }
+    .return-total-title {
+        text-align: left;
     }
     .return-total {
-        margin-bottom: 30px;
+        text-align: right;
+        float: right;
+    }
+    .dotted-border {
+        border: 1px dashed #6bcad2;
+        margin: 20px 0 20px 0;
+    }
+
+    /* modal */
+    * {
+        box-sizing: border-box;
+        outline: none;
+    }
+    .popup-calc {
+        z-index: 20;
+        position: fixed;
+        display: none;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(56, 65, 66, 0.8);
+    }
+    .popup-close {
+        position: absolute;
+        top: -4rem;
+        right: -1.5rem;
+        font-size: 3rem;
+        width: 5rem;
+        height: 5rem;
+        line-height: 5rem;
+        text-align: center;
+        background: transparent;
+        color: #ffffff;
+        border: none;
+      }
+    .popup-content {
+        position: fixed;
+        text-align: center;
+        max-width: 35rem;
+        left: 50%;
+        top: 10%;
+        background-color: #ededed;
+        border-radius: 4px;
+        transform: translateX(-50%) !important;
+        padding: 3rem 6rem 3rem 6rem;
+    }
+    .popup-calc h4 {
+    margin-bottom: 20px;
+    margin-top: -10px;
+    }
+    .popup-calc .form {
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .popup-calc .form input,
+    .popup-calc .form textarea {
+        border: none;
+        border-radius: 5px;
+        background-color: #ffffff;
+        padding: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+        color: inherit;
+        resize: none;
+        font-family: montserrat;
+    }
+    .popup-calc .button-order {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    .spinner-img {
+        display:block;
+        margin:0 auto;
+    }
+    .hide {
+        display: none;
+    }
+    .show {
+        display: block;
     }

@@ -19,26 +19,61 @@
             <div class="slidecontainer">
                 <input type="range" min="100" max="22000" value="100" step="100" class="slider" id="myRange">
             </div>
-            <div class='info-cr info-credit-1'>100 грн</div>
-            <div class='info-cr info-credit-2'>до 22 000 грн</div>
+            <div class='info-cr'>
+                <span class="info-credit-1">100 грн</span>
+                <span class='info-credit-2'>до 22 000 грн</span>
+            </div>
             <div class="term">Термін: <span id="days">_____</span></div>
             <div class="slidecontainer">
                 <input type="range" min="1" max="30" value="1" step="1" class="slider" id="myTime">
             </div>
-            <div class="info-cr info-credit-1">1 день</div>
-            <div class="info-cr info-credit-2">30 днів</div>
+            <div class='info-cr'>
+                <span class="info-credit-1">1 день</span>
+                <span class='info-credit-2'>30 днів</span>
+            </div>
 
-            <div class="return-data-title">Повернути до:</div>
-            <div class="return-data">____</div>
-            <div class="return-sum-title">Сума:</div>
-            <div class="return-sum">____</div>
-            <div class="return-percent-title">Відсотки:</div>
-            <div class="return-percent">____</div>
-            <div class='dotted-border'></div>
-            <div class="return-total-title">Повернути:</div>
-            <div class="return-total">____</div>
+            <div class="result-wrapper">
+                <div class="calc-total-info">
+                    <span class="return-data-title">Повернути до:</span>
+                    <span class="return-data">___</span>
+                </div>
+                <div class="calc-total-info">
+                    <span class="return-sum-title">Сума:</span>
+                    <span class="return-sum">___</span>
+                </div>
+                <div class="calc-total-info">
+                    <span class="return-percent-title">Відсотки:</span>
+                    <span class="return-percent">___</span>
+                </div>
+                <div class='dotted-border'></div>
+                <div class="calc-total-info">
+                    <span class="return-total-title">Повернути:</span>
+                    <span class="return-total">___</span>
+                </div>
+            </div>
 
             <button class="confirm-credit-btn">Оформити кредит</button>
+        </div>
+
+        <div class=popup-calc>
+            <div class=popup-dialog>
+                <div class=popup-content>
+                    <button class=popup-close>&times;</button>
+                    <form action=# data-calc="end">
+                        <h4>Заявка на отримання кредиту</h4>
+                        <div class=main-form>
+                            <div class=form>
+                                <input type=text name=surname placeholder="Прізвище" required>
+                                <input type=text name=name placeholder="Ім'я" required>
+                                <input type=text name=patronymic placeholder="По батькові" required>
+                                <input type=text name=phone placeholder="Номер моб. телефону" required>
+                                <input type=text name=email placeholder="Email">
+                                <button class="button button-order">Відправити заявку</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
     </div>
