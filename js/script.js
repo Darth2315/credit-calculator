@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-    'use strict';
+    // 'use strict';
 
     const sliderSum = document.querySelector("#myRange"),
           outputSum = document.querySelector("#sum"),
@@ -15,7 +15,28 @@ window.addEventListener('DOMContentLoaded', () => {
     let percent = 0.0001,
         daysCredit = 1,
         sum = 100,
-        modalState = {};
+        modalState = {
+            'sum' : 100,
+            'days' : 1,
+            'returnPercent' : 0.01,
+            'totalReturn' : 100.01
+        };
+    
+    const addZero = (num) => {
+        if (num < 10) {
+            return `0${num}`;
+        } else {
+            return num;
+        }
+    };
+
+    function redDays(day) {
+        if (day == 'Сб' || day == 'Нд') {
+            returnDate.style.color = '#e55f58';
+        } else {
+            returnDate.style.color = '#fff';
+        }
+    }
 
     // Sliders sum     
     outputSum.innerHTML = sliderSum.value + ' грн';
@@ -41,7 +62,6 @@ window.addEventListener('DOMContentLoaded', () => {
         countTotal(percent, sum, daysCredit);
     });
 
-
     // Sliders date
     const weekDays = ['Нд','Пн','Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
     const today = new Date(),
@@ -49,22 +69,12 @@ window.addEventListener('DOMContentLoaded', () => {
           tomorrow.setDate(tomorrow.getDate() + 1);
 
     let year = tomorrow.getFullYear(),
-        month = tomorrow.getMonth() + 1,
-        day = tomorrow.getDate(),
+        month = addZero(tomorrow.getMonth() + 1),
+        day = addZero(tomorrow.getDate()),
         weekDay = weekDays[tomorrow.getDay()],
         millisec = today.getTime();
 
-        if (day < 10) {
-            day = `0${day}`;
-        }
-        if (month < 10) {
-            month = `0${month}`;
-        }
-        if (weekDay == 'Сб' || weekDay == 'Нд') {
-            returnDate.style.color = '#e55f58';
-        } else {
-            returnDate.style.color = '#fff';
-        }
+    redDays(weekDay);
 
     returnDate.innerHTML = `${weekDay}, ${day}.${month}.${year}`;
 
@@ -76,24 +86,13 @@ window.addEventListener('DOMContentLoaded', () => {
         
         let userSelectedDays = new Date(millisec + (daysCredit * 86400000)),
             userYear = userSelectedDays.getFullYear(),
-            userMonth = userSelectedDays.getMonth() + 1,
-            userDay = userSelectedDays.getDate(),
+            userMonth = addZero(userSelectedDays.getMonth() + 1),
+            userDay = addZero(userSelectedDays.getDate()),
             userWeekDay = weekDays[userSelectedDays.getDay()];
 
-        if (userWeekDay == 'Сб' || userWeekDay == 'Нд') {
-            returnDate.style.color = '#e55f58';
-        } else {
-            returnDate.style.color = '#fff';
-        }
-
+        redDays(userWeekDay);
         countTotal(percent, sum, daysCredit);
 
-        if (userMonth < 10) {
-            userMonth = `0${userMonth}`;
-        }
-        if (userDay < 10) {
-            userDay = `0${userDay}`;
-        }
         if (daysCredit > 1) {
             returnDate.textContent = `${userWeekDay}, ${userDay}.${userMonth}.${userYear}`;
         } else {
@@ -117,25 +116,28 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // modal
     const modal = document.querySelector('.popup-calc'),
-          closeBtn = document.querySelector('.popup-close'),
           orderBtn = modal.querySelector('.button-order');
     
     function openModal(){
         modal.classList.add('show');
         modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
     }
 
     function closeModal(){
         modal.classList.add('hide');
         modal.classList.remove('show');
+        document.body.style.overflow = '';
     }
 
     confirmBtn.addEventListener('click', () => {
         openModal();
     });
 
-    closeBtn.addEventListener('click', () => {
-        closeModal();
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal || e.target.getAttribute('data-close') == '') {
+            closeModal();
+        }
     });
 
     animateBtn(orderBtn);
@@ -144,8 +146,9 @@ window.addEventListener('DOMContentLoaded', () => {
     const changeModalState = (state) => {
         function bindActionToElems(event, elem, prop) {
             elem.addEventListener(event, () => {
-                state[prop] = elem.value;
-                // console.log(state);
+                    state[prop] = elem.value;
+                    state.returnPercent = returnPercent.textContent;
+                    state.totalReturn = returnTotal.textContent;
             });
         }
 
@@ -183,7 +186,6 @@ window.addEventListener('DOMContentLoaded', () => {
             const statusMessage = document.createElement('img');
             statusMessage.src = message.loading;
             statusMessage.classList.add('spinner-img');
-            // form.append(statusMessage);
             form.insertAdjacentElement('afterend', statusMessage);
 
             const formData = new FormData(form);
@@ -219,8 +221,8 @@ window.addEventListener('DOMContentLoaded', () => {
         thanksModal.classList.add('popup-dialog');
         thanksModal.innerHTML=`
             <div class=popup-content>
-            <button class=popup-close>&times;</button>
-            <h4>${message}</h4>
+            <button data-close class=popup-close>&times;</button>
+            <h4 class="message-for-user">${message}</h4>
             </div>
         `;
 
@@ -232,4 +234,81 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000);
     }
+
+    // validation form
+    const mask = (selector) => {
+        let setCursorPosition = (pos, elem) => {
+            elem.focus();
+    
+            if ((pos - 1) <= 2) {
+                elem.addEventListener('click', () => {
+                    elem.setSelectionRange(pos, pos);
+                    console.log(pos);
+                });
+            }
+
+            if (elem.setSelectionRange) {
+                elem.setSelectionRange(pos, pos);
+            } else if (elem.createTextRange) {
+                let range = elem.createTextRange();
+                range.collapse(true);
+                range.moveEnd('character', pos);
+                range.moveStart('character', pos);
+                range.select();
+            }                    
+        };
+    
+        function createMask(event) {
+            let matrix = '+38 (___) ___ __ __',
+                i = 0,
+                def = matrix.replace(/\D/g, ''),
+                val = this.value.replace(/\D/g, '');
+    
+                if (def.length >= val.length) {
+                    val = def;
+                }
+            
+            this.value = matrix.replace(/./g, function(a) {
+                return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? '' : a;
+            });
+    
+            if (event.type === 'blur') {
+                if (this.value.length == 3) {
+                    this.value = '';
+                }
+            } else {
+                setCursorPosition(this.value.length, this);
+            }
+        }
+    
+        let inputs = document.querySelectorAll(selector);
+    
+        inputs.forEach(input => {
+            input.addEventListener('input', createMask);
+            input.addEventListener('focus', createMask);
+            input.addEventListener('blur', createMask);
+        });
+    };
+    mask('[name="phone"]');
+
+    const checkTextInput = (selector) => {
+        const txtInputs = document.querySelectorAll(selector);
+    
+        txtInputs.forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key.match(/[^а-яёії]/ig)) {
+                    e.preventDefault();
+                }
+            });
+    
+            input.addEventListener('input', () => {
+                if (input.value.match(/[a-z]/ig)) {
+                    input.value = '';
+                }
+            });
+        });
+    };
+    checkTextInput('[name="surname"]');
+    checkTextInput('[name="name"]');
+    checkTextInput('[name="patronymic"]');
 });
