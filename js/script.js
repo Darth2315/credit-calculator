@@ -116,18 +116,21 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // modal
     const modal = document.querySelector('.popup-calc'),
-          orderBtn = modal.querySelector('.button-order');
+          orderBtn = modal.querySelector('.button-order'),
+          scroll = calcScroll();
     
     function openModal(){
         modal.classList.add('show');
         modal.classList.remove('hide');
         document.body.style.overflow = 'hidden';
+        document.body.style.marginRight = `${scroll}px`;
     }
 
     function closeModal(){
         modal.classList.add('hide');
         modal.classList.remove('show');
         document.body.style.overflow = '';
+        document.body.style.marginRight = '';
     }
 
     confirmBtn.addEventListener('click', () => {
@@ -158,7 +161,7 @@ window.addEventListener('DOMContentLoaded', () => {
     changeModalState(modalState);
 
     // form
-    const form = document.querySelector('form');
+    const formCalc = document.querySelector('.calc-form');
 
     const message = {
         loading: 'img/spinner.svg',
@@ -166,7 +169,7 @@ window.addEventListener('DOMContentLoaded', () => {
         failure: 'Щось пішло не так...'
     };
 
-    bindPostData(form, modalState);
+    bindPostData(formCalc, modalState);
 
     const postData = async (url, data) => {
         const res = await fetch(url, {
@@ -204,6 +207,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 statusMessage.remove();
             }).catch(() => {
                 showThanksModal(message.failure);
+                statusMessage.remove();
             }).finally(() => {
                 form.reset();
             });
@@ -311,4 +315,18 @@ window.addEventListener('DOMContentLoaded', () => {
     checkTextInput('[name="surname"]');
     checkTextInput('[name="name"]');
     checkTextInput('[name="patronymic"]');
+
+    // Remove jumping scroll
+    function calcScroll() {
+        const div = document.createElement('div');
+        div.style.height = '50px';
+        div.style.width = '50px';
+        div.style.overflowY = 'scroll';
+        div.style.visibility = 'hidden';
+        document.body.appendChild(div);
+    
+        let scrollWidth = div.offsetWidth - div.clientWidth;
+        div.remove();
+        return scrollWidth;
+    }
 });
