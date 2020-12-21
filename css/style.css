@@ -36,6 +36,10 @@ height: 25px;
 background: #6bcad2;
 cursor: pointer;
 }
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
 .calculator-wrapper {
     width: 800px;
     margin-top: 30px;
@@ -188,6 +192,11 @@ margin-top: -10px;
 }
 .show {
     display: block;
+}
+@media (max-width: 800px) {
+    .container {
+        width: 100%;
+    }
 }
 @media (max-width:1000px){
     .calculator-wrapper{

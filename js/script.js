@@ -200,9 +200,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-            postData('http://localhost:3000/requests', json)
+            postData('db.json', json)
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 showThanksModal(message.success);
                 statusMessage.remove();
             }).catch(() => {
